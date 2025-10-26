@@ -1,10 +1,9 @@
-<!doctype html>
-<html lang="en" data-bs-theme="dark">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SonoGlyph</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./SonoGlyph_files/bootstrap.min.css" rel="stylesheet">
   <style>
     :root{ --gg-bg:#0c1020; --gg-card:#121735; --gg-ink:#eef1ff; --gg-ink-dim:#b9c6ef; --gg-border:#2b3868; }
     html,body{height:100%}
@@ -21,11 +20,42 @@
     canvas{ image-rendering:pixelated; }
     .form-text { color: var(--gg-ink-dim); }
   </style>
+
+<script>
+window.makeSafeObjectURL = function(blob){
+  try { return URL.createObjectURL(blob); }
+  catch(e){
+    // Fallback to data URL
+    try {
+      const reader = new FileReader();
+      return new Promise((resolve, reject)=>{
+        reader.onerror = reject;
+        reader.onload = ()=>resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    } catch(e2){ return null; }
+  }
+};
+</script>
+
+
+<script>
+function setSrcFromMaybePromise(el, maybeUrl){
+  try{
+    if(maybeUrl && typeof maybeUrl.then === 'function'){
+      maybeUrl.then(u => { if(u) el.src = u; }).catch(()=>{});
+    }else if(maybeUrl){
+      el.src = maybeUrl;
+    }
+  }catch(e){}
+}
+</script>
+
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-body-tertiary sticky-top border-bottom border-dark-subtle">
     <div class="container-lg">
-      <a class="navbar-brand fw-bold" href="#">SonoGlyph</a>
+      <a class="navbar-brand fw-bold" href="https://nqrlabs.github.io/SonoGlyph/#">SonoGlyph</a>
       <span class="navbar-text small text-secondary ms-1">Spectrogram-Driven Steganography</span>
     </div>
   </nav>
@@ -34,61 +64,61 @@
     <section class="gg-card p-3 mb-3">
       <div class="d-flex align-items-center gap-2 pb-2 border-bottom gg-border">
         <span class="badge rounded-pill gg-badge">Open files &amp; settings</span>
-        <div class="ms-auto small text-dim" id="status">Idle</div>
+        <div class="ms-auto small text-dim" id="status">Done. Preview or re-embed if needed.</div>
       </div>
       <div class="row g-3 pt-3 align-items-end">
         <div class="col-12 col-md-5">
           <label class="form-label small text-secondary" for="fileAudio">Audio file</label>
-          <input type="file" id="fileAudio" class="form-control" accept="audio/*" />
+          <input type="file" id="fileAudio" class="form-control" accept="audio/*">
         </div>
         <div class="col-12 col-md-5">
           <label class="form-label small text-secondary" for="fileImage">Image to embed</label>
-          <input type="file" id="fileImage" class="form-control" accept="image/*" />
+          <input type="file" id="fileImage" class="form-control" accept="image/*">
           <div class="row g-2 mt-2">
             <div class="col-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="flipVertical" checked>
-                <label class="form-check-label small" for="flipVertical">Top of image → high frequencies</label>
+                <input class="form-check-input" type="checkbox" id="flipVertical" checked="">
+                <label class="form-check-label small" for="flipVertical">Top of image â†’ high frequencies</label>
               </div>
             </div>
             <div class="col-6">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="invertImage">
-                <label class="form-check-label small" for="invertImage">Invert image (white ↔ black)</label>
+                <label class="form-check-label small" for="invertImage">Invert image (white â†” black)</label>
               </div>
             </div>
           </div>
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="fftSize">FFT size</label>
-          <select id="fftSize" class="form-select"><option selected>1024</option><option>2048</option><option>4096</option><option>8192</option></select>
+          <select id="fftSize" class="form-select"><option selected="">1024</option><option>2048</option><option>4096</option><option>8192</option></select>
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="hopPct">Hop (%)</label>
-          <input type="number" id="hopPct" class="form-control" value="25" min="5" max="90" />
+          <input type="number" id="hopPct" class="form-control" value="25" min="5" max="90">
           <div class="form-text">Lower = smoother spectrogram</div>
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="minHz">Embed min Hz</label>
-          <input type="number" id="minHz" class="form-control" value="8000" />
+          <input type="number" id="minHz" class="form-control" value="8000" min="0">
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="maxHz">Embed max Hz</label>
-          <input type="number" id="maxHz" class="form-control" value="18000" />
+          <input type="number" id="maxHz" class="form-control" value="18000">
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="strength">Mix strength</label>
-          <input type="range" id="strength" class="form-range" min="0" max="100" value="35" />
+          <input type="range" id="strength" class="form-range" min="0" max="200" value="35">
           <div class="form-text">Higher = more visible, more audible</div>
         </div>
         <div class="col-6 col-md-2">
           <label class="form-label small text-secondary" for="glIters">GL iters</label>
-          <input type="number" id="glIters" class="form-control" value="6" min="0" max="12" />
-          <div class="form-text">Griffin–Lim iterations</div>
+          <input type="number" id="glIters" class="form-control" value="6" min="0" max="12">
+          <div class="form-text">Griffinâ€“Lim iterations</div>
         </div>
         <div class="col-12 col-md-4 d-grid d-md-flex gap-2">
-          <button id="btnPreview" class="btn btn-outline-light" disabled>Preview spectrogram</button>
-          <button id="btnEmbed" class="btn btn-primary" disabled>Embed image &amp; download WAV</button>
+          <button id="btnPreview" class="btn btn-outline-light">Preview spectrogram</button>
+          <button id="btnEmbed" class="btn btn-primary">Embed image &amp; download WAV</button>
         </div>
       </div>
       <div class="row g-2 mt-2 small text-dim">
@@ -102,11 +132,11 @@
       <div class="row g-3 pt-3">
         <div class="col-12 col-lg-6">
           <div class="small text-dim mb-1">Original</div>
-          <audio id="playerOrig" controls class="w-100"></audio>
+          <audio id="playerOrig" controls="" class="w-100"></audio>
         </div>
         <div class="col-12 col-lg-6">
           <div class="small text-dim mb-1">With embedded image</div>
-          <audio id="playerOut" controls class="w-100"></audio>
+          <audio id="playerOut" controls="" class="w-100"></audio>
         </div>
       </div>
     </section>
@@ -119,11 +149,11 @@
       <div class="row g-3 pt-3">
         <div class="col-12 col-xl-6">
           <div class="small text-dim mb-2">Original audio</div>
-          <div class="spec-wrap"><canvas id="specA"></canvas></div>
+          <div class="spec-wrap"><canvas id="specA" width="471" height="400"></canvas></div>
         </div>
         <div class="col-12 col-xl-6">
           <div class="small text-dim mb-2">After embedding</div>
-          <div class="spec-wrap"><canvas id="specB"></canvas></div>
+          <div class="spec-wrap"><canvas id="specB" width="471" height="400"></canvas></div>
         </div>
       </div>
     </section>
@@ -193,18 +223,29 @@ const els={ fileAudio:document.getElementById('fileAudio'), fileImage:document.g
   minHz:document.getElementById('minHz'), maxHz:document.getElementById('maxHz'), strength:document.getElementById('strength'), flipVertical:document.getElementById('flipVertical'),
   invertImage:document.getElementById('invertImage'), glIters:document.getElementById('glIters') };
 
+function refreshButtons(){
+  const hasAudio = !!(els.fileAudio.files && els.fileAudio.files.length);
+  const hasImage = !!(els.fileImage.files && els.fileImage.files.length);
+  els.btnPreview.disabled = !hasAudio;
+  els.btnEmbed.disabled = !(hasAudio && hasImage);
+}
+
+
+
 /* ===== loaders ===== */
 async function decodeAudio(file){
   if(!audioCtx){ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
   const arr=await file.arrayBuffer(); const dec=await audioCtx.decodeAudioData(arr);
   sampleRate=dec.sampleRate; duration=dec.duration;
   const L=dec.getChannelData(0); if(dec.numberOfChannels>1){ const R=dec.getChannelData(1); const n=Math.min(L.length,R.length); const m=new Float32Array(n); for(let i=0;i<n;i++){ m[i]=(L[i]+R[i])*0.5; } srcPCM=m; } else { srcPCM=new Float32Array(L); }
-  els.status.textContent='Loaded '+file.name+' · '+duration.toFixed(2)+'s @ '+(sampleRate|0)+'Hz';
-  els.playerOrig.src=URL.createObjectURL(encodeWav(srcPCM,sampleRate));
+  els.status.textContent='Loaded '+file.name+' Â· '+duration.toFixed(2)+'s @ '+(sampleRate|0)+'Hz';
+  (() => { const wav = encodeWav(srcPCM, sampleRate); const u = window.makeSafeObjectURL(wav); if(u && u.then){ u.then(url=>els.playerOrig.src=url); } else if(u) { els.playerOrig.src = u; } })();
   els.btnPreview.disabled=false; els.btnEmbed.disabled=!(els.fileImage.files.length);
 }
-els.fileAudio.addEventListener('change', async ()=>{ const f=els.fileAudio.files&&els.fileAudio.files[0]; if(f) await decodeAudio(f); });
-els.fileImage.addEventListener('change', ()=>{ els.btnEmbed.disabled=!(els.fileAudio.files.length && els.fileImage.files.length); });
+els.fileAudio.addEventListener('change', async ()=>{ const f=els.fileAudio.files&&els.fileAudio.files[0]; if(f) await decodeAudio(f); refreshButtons(); });
+els.fileImage.addEventListener('change', ()=>{ refreshButtons(); 
+refreshButtons();
+});
 
 /* ===== preview spectrogram ===== */
 async function renderSpec(canvas, pcm, sr, N, hopFrac, minHz, maxHz){
@@ -350,26 +391,46 @@ async function embedAndRender(){
   const hop=Math.max(1,Math.round(N*(Number(els.hopPct.value)/100)));
   const frames=1+Math.floor((srcPCM.length-N)/hop);
   const bins=N/2|0; const ny=sampleRate/2;
-  const minHz=Number(els.minHz.value)||8000, maxHz=Number(els.maxHz.value)||18000;
+  const minHz = (els.minHz.value === "" ? 8000 : Math.max(0, Number(els.minHz.value)));
+  const maxHz = (els.maxHz.value === "" ? 18000 : Math.max(0, Number(els.maxHz.value)));
   const minBin=Math.max(0,Math.floor(minHz/ny*(bins))), maxBin=Math.min(bins,Math.ceil(maxHz/ny*(bins)));
 
-  els.status.textContent='Building watermark…';
+  els.status.textContent='Building watermarkâ€¦';
   const build=await buildWatermarkFromImage(N, hop, frames, bins, minBin, maxBin);
 
   // If the image is pure black (or nearly), do NOT embed.
-  if(build.totalLum < 1e-6){
-    els.status.textContent='Image is all black – no changes applied.';
-    outPCM = new Float32Array(srcPCM);
-    const wav=encodeWav(outPCM,sampleRate); const url=URL.createObjectURL(wav); els.playerOut.src=url; const a=document.createElement('a'); a.href=url; a.download='spectroghost_no_change.wav'; a.click();
-    await renderSpec(els.specB, outPCM, sampleRate, N, hop/N, 0, sampleRate/2);
-    return;
-  }
+  
+
+if (build.totalLum < 1e-6) {
+  els.status.textContent = 'Image is all black â€“ no changes applied.';
+  outPCM = new Float32Array(srcPCM);
+  const wav = encodeWav(outPCM, sampleRate);
+  let uSafe = null;
+  try{
+    if(window.makeSafeObjectURL){ uSafe = window.makeSafeObjectURL(wav); }
+    else { uSafe = URL.createObjectURL(wav); }
+  }catch(e){ uSafe = null; }
+  const doDownload = (url)=>{
+    try{ els.playerOut.src = url; }catch(e){}
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'spectroghost_no_change.wav';
+    a.click();
+  };
+  if(uSafe && typeof uSafe.then === 'function'){ uSafe.then(doDownload).catch(()=>{}); }
+  else if(uSafe){ doDownload(uSafe); }
+  await renderSpec(els.specB, outPCM, sampleRate, N, hop/N, 0, sampleRate/2);
+  return;
+}
+
+
 
   const targetMag = build.targetMag;
-  const strength = Number(els.strength.value)/100;
+  const strengthPct = Number(els.strength.value);
+  const strength = Math.max(0, Math.min(2, strengthPct/100));
   const iters = Math.max(0, Math.min(12, Number(els.glIters.value)|0));
 
-  els.status.textContent='Running Griffin–Lim…';
+  els.status.textContent='Running Griffinâ€“Limâ€¦';
   let wm = griffinLim(targetMag, N, hop, iters, srcPCM.length);
 
   // Band-limit watermark firmly in STFT domain
@@ -385,8 +446,8 @@ async function embedAndRender(){
   // Scale watermark RMS relative to source, then mix
   const srcR = rms(srcPCM);
   let wmR = rms(wmBand);
-  const targetR = srcR * (0.08 + 0.42*strength);
-  const gain = wmR>1e-12 ? (targetR / wmR) : 0;
+  const targetR = srcR * strength;
+const gain = wmR>1e-12 ? (targetR / wmR) : 0;
   for(let i=0;i<wmBand.length;i++) wmBand[i] *= gain;
 
   const out=new Float32Array(srcPCM.length);
@@ -396,25 +457,40 @@ async function embedAndRender(){
   let peak=0; for(let i=0;i<out.length;i++){ const a=Math.abs(out[i]); if(a>peak) peak=a; }
   if(peak>0.99){ const g=0.99/peak; for(let i=0;i<out.length;i++) out[i]*=g; }
 
-  outPCM=out;
-  const wav=encodeWav(outPCM,sampleRate); const url=URL.createObjectURL(wav);
-  els.playerOut.src=url; const a=document.createElement('a'); a.href=url; a.download='spectroghost_stego_strict.wav'; a.click();
+  outPCM = out;
+  const wav2 = encodeWav(outPCM, sampleRate);
+  let u2 = null;
+  try{
+    if(window.makeSafeObjectURL){ u2 = window.makeSafeObjectURL(wav2); }
+    else { u2 = URL.createObjectURL(wav2); }
+  }catch(e){ u2 = null; }
+
+  const finalize = (url)=>{
+    try{ els.playerOut.src = url; }catch(e){}
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'spectroghost_stego_strict.wav';
+    a.click();
+  };
+  if(u2 && typeof u2.then === 'function'){ u2.then(finalize).catch(()=>{}); }
+  else if(u2){ finalize(u2); }
 
   await renderSpec(els.specB, outPCM, sampleRate, N, hop/N, 0, sampleRate/2);
-}
 
+
+}
 /* ===== UI ===== */
 document.getElementById('btnPreview').addEventListener('click', async ()=>{
-  els.status.textContent='Rendering spectrograms…';
+  els.status.textContent='Rendering spectrogramsâ€¦';
   await renderSpec(els.specA, srcPCM, sampleRate, Number(els.fftSize.value), Number(els.hopPct.value)/100, 0, sampleRate/2);
   if(outPCM){ await renderSpec(els.specB, outPCM, sampleRate, Number(els.fftSize.value), Number(els.hopPct.value)/100, 0, sampleRate/2); }
   els.status.textContent='Done';
 });
 document.getElementById('btnEmbed').addEventListener('click', async ()=>{
-  els.status.textContent='Embedding image…';
+  els.status.textContent='Embedding imageâ€¦';
   await embedAndRender();
   els.status.textContent='Done. Preview or re-embed if needed.';
 });
 </script>
-</body>
-</html>
+
+</body></html>
