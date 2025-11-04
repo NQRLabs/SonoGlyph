@@ -19,3 +19,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+------------------------------------------------------------
+Third-Party Components
+------------------------------------------------------------
+
+This project includes Bootstrap, an open-source front-end framework,
+© Twitter, Inc. and contributors.
+
+Bootstrap is distributed under the MIT License.
+The full license text is available at:
+https://github.com/twbs/bootstrap/blob/main/LICENSE
+
+No modifications have been made to the distributed Bootstrap source
+except for local hosting and version pinning.
