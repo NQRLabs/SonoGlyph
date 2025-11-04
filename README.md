@@ -72,10 +72,16 @@ The tool provides a complete, transparent environment for experimentation, revea
 
 MIT License — free for modification and use. Attribution appreciated if used publicly.
 
-### Third-Party Components
+### Third-Party Components (vendored)
 
-SonoGlyph includes a local copy of [Bootstrap](https://getbootstrap.com),  
-© Twitter, Inc. and contributors, distributed under the MIT License.  
+SonoGlyph includes a local copy of **Bootstrap v4.4.1 (CSS only)** — MIT License  
+© 2011–2019 The Bootstrap Authors and Twitter, Inc.  
+Project: https://getbootstrap.com/  
+Source code: https://github.com/twbs/bootstrap  
+Vendored file: `assets/css/bootstrap.min.css`  
+Vendored from: https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css (retrieved 2025-11-04)  
+License file: `vendor-licenses/bootstrap.LICENSE`
+
 No other third-party libraries or frameworks are used.
 
 ## Credit
