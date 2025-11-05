@@ -4,7 +4,7 @@
 
 **SonoGlyph** is a browser-based audio steganography lab that hides images within sound. It embeds visual patterns directly into the spectrogram of an audio file, preserving the original sound while producing faint, ghostlike watermarks visible only in the spectral domain.
 
-[**View Live Demo**](nqrlabs.com/SonoGlyph/)
+[**View Live Demo**](https://nqrlabs.com/SonoGlyph/)
 
 ## Overview
 
