@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
   <head>
   <!--
     MIT License
@@ -23,22 +23,6 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
-
-    ------------------------------------------------------------
-    Third-Party Components (vendored)
-    ------------------------------------------------------------
-    
-    This project includes a local copy of Bootstrap v4.4.1 (CSS only),
-    an open-source front-end framework distributed under the MIT License,
-    © 2011–2019 The Bootstrap Authors and Twitter, Inc.  
-    Project: https://getbootstrap.com/  
-    Source code: https://github.com/twbs/bootstrap  
-    Vendored file: `assets/css/bootstrap.min.css`  
-    Vendored from: https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css (retrieved 2025-11-04)  
-    License file: `vendor-licenses/bootstrap.LICENSE`
-    
-    No modifications have been made to the distributed Bootstrap source
-    except for local hosting and version pinning.
   -->
   <!-- Favicons (browser tabs, bookmarks) -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
@@ -51,8 +35,357 @@
   <title>SonoGlyph</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap 5.3 -->
-  <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Utility classes */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Container */
+    .container-lg {
+      width: 100%;
+      padding-right: 0.75rem;
+      padding-left: 0.75rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    @media (min-width: 992px) {
+      .container-lg {
+        max-width: 960px;
+      }
+    }
+    @media (min-width: 1200px) {
+      .container-lg {
+        max-width: 1140px;
+      }
+    }
+    @media (min-width: 1400px) {
+      .container-lg {
+        max-width: 1320px;
+      }
+    }
+
+    /* Grid system */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -0.75rem;
+      margin-left: -0.75rem;
+    }
+
+    .row > * {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 100%;
+      padding-right: 0.75rem;
+      padding-left: 0.75rem;
+    }
+
+    .col-1 { flex: 0 0 auto; width: 8.333333%; }
+    .col-6 { flex: 0 0 auto; width: 50%; }
+    .col-12 { flex: 0 0 auto; width: 100%; }
+
+    @media (min-width: 768px) {
+      .col-md-2 { flex: 0 0 auto; width: 16.666667%; }
+      .col-md-3 { flex: 0 0 auto; width: 25%; }
+      .col-md-5 { flex: 0 0 auto; width: 41.666667%; }
+    }
+
+    @media (min-width: 992px) {
+      .col-lg-6 { flex: 0 0 auto; width: 50%; }
+    }
+
+    @media (min-width: 1200px) {
+      .col-xl-6 { flex: 0 0 auto; width: 50%; }
+    }
+
+    /* Row gutters */
+    .g-2 {
+      --bs-gutter-x: 0.5rem;
+      --bs-gutter-y: 0.5rem;
+    }
+    .g-3 {
+      --bs-gutter-x: 1rem;
+      --bs-gutter-y: 1rem;
+    }
+    .g-2 > * {
+      padding-right: calc(var(--bs-gutter-x) * 0.5);
+      padding-left: calc(var(--bs-gutter-x) * 0.5);
+      margin-top: var(--bs-gutter-y);
+    }
+    .g-3 > * {
+      padding-right: calc(var(--bs-gutter-x) * 0.5);
+      padding-left: calc(var(--bs-gutter-x) * 0.5);
+      margin-top: var(--bs-gutter-y);
+    }
+
+    /* Width utilities */
+    .w-100 { width: 100% !important; }
+
+    /* Display utilities */
+    .d-flex { display: flex !important; }
+    .d-grid { display: grid !important; }
+    @media (min-width: 768px) {
+      .d-md-flex { display: flex !important; }
+    }
+
+    /* Flexbox utilities */
+    .align-items-center { align-items: center !important; }
+    .align-items-end { align-items: flex-end !important; }
+    .gap-2 { gap: 0.5rem !important; }
+
+    /* Spacing utilities */
+    .m-0 { margin: 0 !important; }
+    .my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+    .mb-1 { margin-bottom: 0.25rem !important; }
+    .mb-2 { margin-bottom: 0.5rem !important; }
+    .mb-3 { margin-bottom: 1rem !important; }
+    .mt-2 { margin-top: 0.5rem !important; }
+    .ms-auto { margin-left: auto !important; }
+
+    .p-3 { padding: 1rem !important; }
+    .pb-2 { padding-bottom: 0.5rem !important; }
+    .pt-3 { padding-top: 1rem !important; }
+
+    /* Border utilities */
+    .border-bottom { border-bottom: 1px solid #dee2e6 !important; }
+
+    /* Text utilities */
+    .small { font-size: 0.875em; }
+    .text-secondary { color: #6c757d !important; }
+
+    /* Form controls */
+    .form-label {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .form-control,
+    .form-select {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      appearance: none;
+      border-radius: 0.25rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      color: #212529;
+      background-color: #fff;
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-select {
+      padding-right: 2.25rem;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px 12px;
+    }
+
+    .form-check {
+      display: block;
+      min-height: 1.5rem;
+      padding-left: 1.5em;
+      margin-bottom: 0.125rem;
+    }
+
+    .form-check-input {
+      width: 1em;
+      height: 1em;
+      margin-top: 0.25em;
+      margin-left: -1.5em;
+      vertical-align: top;
+      background-color: #fff;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      appearance: none;
+    }
+
+    .form-check-input[type="checkbox"] {
+      border-radius: 0.25em;
+    }
+
+    .form-check-input:checked {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    .form-check-input:checked[type="checkbox"] {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    }
+
+    .form-check-input:focus {
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-check-label {
+      cursor: pointer;
+    }
+
+    .form-range {
+      width: 100%;
+      height: 1.5rem;
+      padding: 0;
+      background-color: transparent;
+      appearance: none;
+    }
+
+    .form-range:focus {
+      outline: 0;
+    }
+
+    .form-range:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-range:focus::-moz-range-thumb {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .form-range::-webkit-slider-thumb {
+      width: 1rem;
+      height: 1rem;
+      margin-top: -0.25rem;
+      background-color: #0d6efd;
+      border: 0;
+      border-radius: 1rem;
+      appearance: none;
+    }
+
+    .form-range::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 0.5rem;
+      color: transparent;
+      cursor: pointer;
+      background-color: #dee2e6;
+      border-color: transparent;
+      border-radius: 1rem;
+    }
+
+    .form-range::-moz-range-thumb {
+      width: 1rem;
+      height: 1rem;
+      background-color: #0d6efd;
+      border: 0;
+      border-radius: 1rem;
+      appearance: none;
+    }
+
+    .form-range::-moz-range-track {
+      width: 100%;
+      height: 0.5rem;
+      color: transparent;
+      cursor: pointer;
+      background-color: #dee2e6;
+      border-color: transparent;
+      border-radius: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .btn:hover {
+      color: #212529;
+    }
+
+    .btn:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn:disabled {
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    .btn-primary:hover {
+      color: #fff;
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+    }
+
+    .btn-primary:focus {
+      color: #fff;
+      background-color: #0b5ed7;
+      border-color: #0a58ca;
+      box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    }
+
+    .btn-outline-light {
+      color: #f8f9fa;
+      border-color: #f8f9fa;
+    }
+
+    .btn-outline-light:hover {
+      color: #000;
+      background-color: #f8f9fa;
+      border-color: #f8f9fa;
+    }
+
+    .btn-outline-light:focus {
+      box-shadow: 0 0 0 0.25rem rgba(248, 249, 250, 0.5);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 0.35em 0.65em;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+    }
+
+    .rounded-pill {
+      border-radius: 50rem !important;
+    }
+
+    /* End utility classes */
+
+  </style>
   <style>
     :root {
       --gg-bg: #0c1020;
@@ -75,8 +408,145 @@
     .gg-border{ border-color:var(--gg-border)!important; }
     .gg-badge{ background:#1a2147; color:#a6b6f0; border:1px solid var(--gg-border); }
     .text-dim{ color:var(--gg-ink-dim) }
-    .spec-wrap{ position:relative; overflow:auto; border:1px solid var(--gg-border); border-radius:12px; background:#0f1432; }
+    .spec-wrap{ position:relative; overflow:auto; border:1px solid var(--gg-border); border-radius:12px; background:#0f1432; cursor:crosshair; }
     canvas{ image-rendering:pixelated; }
+
+    /* 2D Selection box on spectrogram */
+    .selection-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: all;
+      z-index: 5;
+    }
+
+    .selection-box {
+      position: absolute;
+      background: rgba(93, 225, 255, 0.12);
+      border: 2px solid #5de1ff;
+      box-shadow: 0 0 8px rgba(93, 225, 255, 0.4);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Center - for moving the entire box */
+    .selection-center {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      cursor: move;
+      pointer-events: all;
+    }
+
+    /* Edge handles */
+    .selection-edge {
+      position: absolute;
+      pointer-events: all;
+      background: transparent;
+    }
+
+    .selection-edge.top {
+      top: -4px;
+      left: 8px;
+      right: 8px;
+      height: 8px;
+      cursor: ns-resize;
+      border-top: 2px solid #5de1ff;
+    }
+
+    .selection-edge.bottom {
+      bottom: -4px;
+      left: 8px;
+      right: 8px;
+      height: 8px;
+      cursor: ns-resize;
+      border-bottom: 2px solid #5de1ff;
+    }
+
+    .selection-edge.left {
+      left: -4px;
+      top: 8px;
+      bottom: 8px;
+      width: 8px;
+      cursor: ew-resize;
+      border-left: 2px solid #5de1ff;
+    }
+
+    .selection-edge.right {
+      right: -4px;
+      top: 8px;
+      bottom: 8px;
+      width: 8px;
+      cursor: ew-resize;
+      border-right: 2px solid #5de1ff;
+    }
+
+    /* Corner handles */
+    .selection-corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #5de1ff;
+      border: 1px solid #0c1020;
+      pointer-events: all;
+    }
+
+    .selection-corner.top-left {
+      top: -6px;
+      left: -6px;
+      cursor: nwse-resize;
+    }
+
+    .selection-corner.top-right {
+      top: -6px;
+      right: -6px;
+      cursor: nesw-resize;
+    }
+
+    .selection-corner.bottom-left {
+      bottom: -6px;
+      left: -6px;
+      cursor: nesw-resize;
+    }
+
+    .selection-corner.bottom-right {
+      bottom: -6px;
+      right: -6px;
+      cursor: nwse-resize;
+    }
+
+    /* Playback position indicator */
+    .playback-indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #00ffaa;
+      box-shadow: 0 0 4px #00ffaa;
+      pointer-events: all;
+      cursor: ew-resize;
+      z-index: 10;
+      display: none;
+    }
+
+    .playback-indicator.active {
+      display: block;
+    }
+
+    .playback-indicator::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: 10px;
+      height: 10px;
+      background: #00ffaa;
+      border-radius: 50%;
+    }
     .form-text { color: var(--gg-ink-dim); }
 
     a, a:visited, a:hover, a:active { color: inherit; }
@@ -332,8 +802,14 @@ function setSrcFromMaybePromise(el, maybeUrl){
         </div>
         <div class="col-6 col-md-3 mb-2">
           <div class="form-check">
-            <input class="form-check-input me-2" type="checkbox" id="flipVertical" checked="">
-            <label class="form-check-label small ms-3" for="flipVertical">Top of image = high frequencies</label>
+            <input class="form-check-input" type="checkbox" id="flipVertical">
+            <label class="form-check-label small" for="flipVertical">Flip image vertically</label>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="flipHorizontal">
+            <label class="form-check-label small" for="flipHorizontal">Flip image horizontally</label>
           </div>
         </div>
         <div class="w-100"></div>
@@ -343,11 +819,11 @@ function setSrcFromMaybePromise(el, maybeUrl){
         </div>
         <div class="col-6 col-md-2 mb-2">
           <label class="form-label small text-secondary" for="minHz">Embed min Hz</label>
-          <input type="number" id="minHz" class="form-control" value="8000" min="0">
+          <input type="number" id="minHz" class="form-control" value="0" min="0">
         </div>
         <div class="col-6 col-md-2 mb-2">
           <label class="form-label small text-secondary" for="maxHz">Embed max Hz</label>
-          <input type="number" id="maxHz" class="form-control" value="18000">
+          <input type="number" id="maxHz" class="form-control" value="24000">
         </div>
         <div class="col-6 col-md-2 mb-2">
           <label class="form-label small text-secondary" for="strength">Mix strength</label>
@@ -358,10 +834,20 @@ function setSrcFromMaybePromise(el, maybeUrl){
           <input type="number" id="glIters" class="form-control" value="6" min="0" max="12">
         </div>
         <div class="w-100"></div>
-        <div class="col-12 col-md-5 d-grid d-md-flex gap-2">
+        <div class="col-6 col-md-2 mb-2">
+          <label class="form-label small text-secondary" for="startTime">Start time (s)</label>
+          <input type="number" id="startTime" class="form-control" value="0" min="0" step="0.01">
+        </div>
+        <div class="col-6 col-md-2 mb-2">
+          <label class="form-label small text-secondary" for="endTime">End time (s)</label>
+          <input type="number" id="endTime" class="form-control" value="0" min="0" step="0.01">
+        </div>
+        <div class="w-100"></div>
+        <div class="col-12 col-md-10 d-grid d-md-flex gap-2">
           <button id="btnPreview" class="btn btn-outline-light">Preview spectrogram</button>
-          <div class="col-1"></div>
-          <button id="btnEmbed" class="btn btn-primary">Embed image &amp; download WAV</button>
+          <button id="btnEmbed" class="btn btn-primary">Embed image</button>
+          <button id="btnDownload" class="btn btn-primary" style="display:none;">Download WAV</button>
+          <button id="btnHelp" class="btn btn-outline-light ms-auto">Help</button>
         </div>
       </div>
       <div class="row g-2 mt-2 small text-dim">
@@ -392,11 +878,30 @@ function setSrcFromMaybePromise(el, maybeUrl){
       <div class="row g-3 pt-3">
         <div class="col-12 col-xl-6">
           <div class="small text-dim mb-2">Original audio</div>
-          <div class="spec-wrap"><canvas id="specA" width="471" height="400"></canvas></div>
+          <div class="spec-wrap" id="specWrapA">
+            <canvas id="specA" width="471" height="400"></canvas>
+          <div class="selection-overlay" id="selectionOverlay" style="display: none;">
+            <div class="selection-box" id="selectionBox">
+                <div class="selection-center" id="selectionCenter"></div>
+                <div class="selection-edge top" id="edgeTop"></div>
+                <div class="selection-edge bottom" id="edgeBottom"></div>
+                <div class="selection-edge left" id="edgeLeft"></div>
+                <div class="selection-edge right" id="edgeRight"></div>
+                <div class="selection-corner top-left" id="cornerTopLeft"></div>
+                <div class="selection-corner top-right" id="cornerTopRight"></div>
+                <div class="selection-corner bottom-left" id="cornerBottomLeft"></div>
+                <div class="selection-corner bottom-right" id="cornerBottomRight"></div>
+              </div>
+            </div>
+            <div class="playback-indicator" id="playbackIndicatorA"></div>
+          </div>
         </div>
         <div class="col-12 col-xl-6">
           <div class="small text-dim mb-2">After embedding</div>
-          <div class="spec-wrap"><canvas id="specB" width="471" height="400"></canvas></div>
+          <div class="spec-wrap" id="specWrapB">
+            <canvas id="specB" width="471" height="400"></canvas>
+            <div class="playback-indicator" id="playbackIndicator"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -421,24 +926,114 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-------------------------------------------------------------
-Third-Party Components (vendored)
-------------------------------------------------------------
-
-This app includes a local copy of Bootstrap v4.4.1 (CSS only), licensed under the MIT License.
-
-© 2011–2019 The Bootstrap Authors and Twitter, Inc.
-Project: <a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a>
-Source Code:  <a href="https://github.com/twbs/bootstrap" target="_blank">https://github.com/twbs/bootstrap</a>
-Vendored file: <a href="https://nqrlabs.com/SonoGlyph/assets/css/bootstrap.min.css" target="_blank">assets/css/bootstrap.min.css</a>
-Vendored from: <a href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" target="_blank">https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css</a> (retrieved 2025-11-04)
-
-The full license text is included with this app at:
-<a href="https://nqrlabs.com/SonoGlyph/vendor-licenses/bootstrap.LICENSE" target="_blank">vendor-licenses/bootstrap.LICENSE</a>
-
-No modifications have been made to the Bootstrap CSS except for local hosting and version pinning.
     </pre>
+  </div>
+
+  <!-- HELP MODAL -->
+  <div class="license-overlay" id="helpOverlay"></div>
+  <div class="license-modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="license-modal-header">
+      <h3 class="license-modal-title" id="helpTitle">SonoGlyph Help</h3>
+      <span class="license-modal-close" id="helpClose" aria-label="Close help dialog">&times;</span>
+    </div>
+    <div style="text-align:left; margin-top:14px; max-width: 100%; font-size: 0.85rem; line-height: 1.6;">
+      <h4 style="color: #00ffaa; margin-top: 0; text-align: center; font-size: 1.1em;">✨ Interactive Spectrogram Controls ✨</h4>
+      <p style="text-align: center; color: #5de1ff; font-weight: 500; margin-bottom: 1.5em;">
+        SonoGlyph features a fully interactive spectrogram interface — drag, resize, and preview in real-time.
+      </p>
+
+      <h4 style="color: #5de1ff; margin-top: 0;">🎯 2D Selection Box (Cyan Rectangle)</h4>
+      <p>The <strong>cyan selection box</strong> on the "Original audio" spectrogram gives you precise visual control over <em>when</em> and <em>where</em> your hidden image appears:</p>
+
+      <div style="background: rgba(93, 225, 255, 0.08); padding: 12px; border-left: 3px solid #5de1ff; margin: 12px 0; border-radius: 4px;">
+        <strong style="color: #5de1ff;">⏱️ Time Control (Horizontal):</strong>
+        <ul style="margin: 8px 0 8px 1.2em; padding-left: 0;">
+          <li><strong>Left edge</strong> → Start time (when embedding begins)</li>
+          <li><strong>Right edge</strong> → End time (when embedding ends)</li>
+          <li>Drag to precisely position your hidden message in the timeline</li>
+        </ul>
+
+        <strong style="color: #5de1ff;">📊 Frequency Control (Vertical):</strong>
+        <ul style="margin: 8px 0 8px 1.2em; padding-left: 0;">
+          <li><strong>Top edge</strong> → Maximum frequency (high notes)</li>
+          <li><strong>Bottom edge</strong> → Minimum frequency (low notes)</li>
+          <li>Higher frequencies = less audible, lower = more noticeable</li>
+        </ul>
+
+        <strong style="color: #5de1ff;">🎨 Advanced Controls:</strong>
+        <ul style="margin: 8px 0 0 1.2em; padding-left: 0;">
+          <li><strong>Drag center</strong> → Reposition entire selection without resizing</li>
+          <li><strong>Drag corners</strong> → Adjust time and frequency simultaneously</li>
+          <li><strong>Click & drag outside box</strong> → Draw entirely new selection region</li>
+          <li><strong>Type in input fields</strong> → Manually enter exact values</li>
+        </ul>
+      </div>
+
+      <h4 style="color: #5de1ff; margin-top: 1.5em;">🎵 Playback Indicator (Green Line)</h4>
+      <p>The <strong>animated green vertical line</strong> on the "After embedding" spectrogram provides real-time playback visualization:</p>
+      <div style="background: rgba(0, 255, 170, 0.08); padding: 12px; border-left: 3px solid #00ffaa; margin: 12px 0; border-radius: 4px;">
+        <ul style="margin: 0 0 0 1.2em; padding-left: 0;">
+          <li>🎧 <strong>Watch it move</strong> as audio plays — see exactly where you are in the spectrogram</li>
+          <li>🖱️ <strong>Drag the indicator</strong> to seek/scrub to any timestamp instantly</li>
+          <li>👆 <strong>Click anywhere</strong> on the spectrogram to jump to that moment</li>
+          <li>Perfect for finding exactly where your hidden image appears in the audio</li>
+        </ul>
+      </div>
+
+      <h4 style="color: #5de1ff; margin-top: 1.5em;">Quick Start Workflow</h4>
+      <ol style="margin-left: 1.2em; padding-left: 0;">
+        <li>📂 <strong>Load files</strong> – Choose an audio file and an image to hide</li>
+        <li>👁️ <strong>Preview spectrogram</strong> – Visualize your audio's frequency content</li>
+        <li>🎯 <strong>Select embedding region</strong> – Drag the cyan box to define where/when</li>
+        <li>⚙️ <strong>Fine-tune settings</strong> – Adjust FFT size, strength, iterations</li>
+        <li>▶️ <strong>Embed</strong> – Process the steganography</li>
+        <li>💾 <strong>Download WAV</strong> – Save your stego audio file</li>
+        <li>🎧 <strong>Test playback</strong> – Use the green indicator to verify placement</li>
+      </ol>
+
+      <h4 style="color: #5de1ff; margin-top: 1.5em;">Tips & Tricks</h4>
+      <ul style="margin-left: 1.2em; padding-left: 0;">
+        <li><strong>Higher FFT size</strong> (2048+) = better frequency resolution, slower processing</li>
+        <li><strong>Lower hop %</strong> (10-15%) = smoother image, longer processing time</li>
+        <li><strong>Frequency range</strong> – Use 8-18 kHz for subtle hiding; 0-12 kHz for audible artifacts</li>
+        <li><strong>Mix strength</strong> – Start at 35. Increase if image is too faint; decrease if audio is distorted</li>
+        <li><strong>Griffin-Lim iterations</strong> – 6-10 is usually sufficient. More = cleaner phase reconstruction</li>
+        <li><strong>Invert image</strong> – Use when your source image is dark; makes bright pixels hide better</li>
+      </ul>
+
+      <h4 style="color: #5de1ff; margin-top: 1.5em;">ARG Creator Use Cases</h4>
+
+      <p><strong>1. Timed Reveals</strong><br>
+      Use the <em>selection box</em> to embed different images at specific timestamps throughout a soundtrack. Players must scrub through the entire audio (or use the playback indicator) to find all clues. Perfect for hiding puzzle pieces at exact moments in a narrative.</p>
+
+      <p><strong>2. Frequency-Based Layers</strong><br>
+      Stack multiple messages in different frequency bands — one in bass (0-4 kHz), another in midrange (4-12 kHz), a third in ultrasonic (16-20 kHz). Use the selection box to precisely control each layer's placement.</p>
+
+      <p><strong>3. Audio Breadcrumbs</strong><br>
+      Embed QR codes, coordinates, or cipher wheels in voicemails, radio transmissions, or ambient soundscapes. The visual selection makes it easy to position clues exactly where you want them discovered.</p>
+
+      <p><strong>4. Red Herrings</strong><br>
+      Place decoy images in high frequencies (16-20 kHz) that are barely visible but draw attention away from real clues in mid-range. The frequency control lets you fine-tune audibility vs. visibility.</p>
+
+      <p><strong>5. Multi-Part Puzzles</strong><br>
+      Create audio files with multiple embedded regions that players must discover. Use the playback indicator to verify each segment appears at the right moment.</p>
+
+      <p><strong>6. Community Collaboration</strong><br>
+      Spread partial images across multiple audio files with precise time/frequency coordinates. Players must combine spectrograms to reveal the complete message — the selection box makes coordinates explicit.</p>
+
+      <h4 style="color: #5de1ff; margin-top: 1.5em;">Best Practices</h4>
+      <ul style="margin-left: 1.2em; padding-left: 0;">
+        <li>Use <strong>high-contrast images</strong> (white on black, or vice versa) for maximum visibility</li>
+        <li>Keep text <strong>large and bold</strong> – thin fonts become unreadable in spectrograms</li>
+        <li>Test with <strong>different spectrogram viewers</strong> (Audacity, Sonic Visualiser, SpectroGhost) to ensure compatibility</li>
+        <li>Export as <strong>WAV (not MP3)</strong> – lossy compression destroys high-frequency steganography</li>
+        <li>Provide players with <strong>hints about frequency range</strong> if using non-standard bands</li>
+      </ul>
+
+      <p style="margin-top: 1.5em; color: var(--gg-ink-dim); font-size: 0.8em; text-align: center;">
+        Created by NQR • For ARG designers, puzzle makers, and sonic explorers
+      </p>
+    </div>
   </div>
 
   <script>
@@ -462,6 +1057,26 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     licenseLink.addEventListener('click', openLicense);
     licenseOverlay.addEventListener('click', closeLicense);
     licenseClose.addEventListener('click', closeLicense);
+
+    // help modal behavior
+    const btnHelp = document.getElementById('btnHelp');
+    const helpOverlay = document.getElementById('helpOverlay');
+    const helpModal = document.getElementById('helpModal');
+    const helpClose = document.getElementById('helpClose');
+
+    function openHelp() {
+      helpOverlay.classList.add('show');
+      helpModal.classList.add('show');
+    }
+
+    function closeHelp() {
+      helpOverlay.classList.remove('show');
+      helpModal.classList.remove('show');
+    }
+
+    btnHelp.addEventListener('click', openHelp);
+    helpOverlay.addEventListener('click', closeHelp);
+    helpClose.addEventListener('click', closeHelp);
 
     /* ===== utilities ===== */
     const hann = N => { const w=new Float32Array(N); for(let n=0;n<N;n++) w[n]=0.5*(1-Math.cos(2*Math.PI*n/(N-1))); return w; };
@@ -517,12 +1132,23 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     }
     
     /* ===== state ===== */
-    let audioCtx=null, srcPCM=null, sampleRate=48000, duration=0, outPCM=null;
+    let audioCtx=null, srcPCM=null, sampleRate=48000, duration=0, outPCM=null, wavBlob=null;
     const els={ fileAudio:document.getElementById('fileAudio'), fileImage:document.getElementById('fileImage'), status:document.getElementById('status'),
       playerOrig:document.getElementById('playerOrig'), playerOut:document.getElementById('playerOut'), specA:document.getElementById('specA'), specB:document.getElementById('specB'),
-      btnPreview:document.getElementById('btnPreview'), btnEmbed:document.getElementById('btnEmbed'), fftSize:document.getElementById('fftSize'), hopPct:document.getElementById('hopPct'),
-      minHz:document.getElementById('minHz'), maxHz:document.getElementById('maxHz'), strength:document.getElementById('strength'), flipVertical:document.getElementById('flipVertical'),
-      invertImage:document.getElementById('invertImage'), glIters:document.getElementById('glIters') };
+      btnPreview:document.getElementById('btnPreview'), btnEmbed:document.getElementById('btnEmbed'), btnDownload:document.getElementById('btnDownload'),
+      fftSize:document.getElementById('fftSize'), hopPct:document.getElementById('hopPct'),
+      minHz:document.getElementById('minHz'), maxHz:document.getElementById('maxHz'), strength:document.getElementById('strength'), flipVertical:document.getElementById('flipVertical'), flipHorizontal:document.getElementById('flipHorizontal'),
+      invertImage:document.getElementById('invertImage'), glIters:document.getElementById('glIters'),
+      startTime:document.getElementById('startTime'), endTime:document.getElementById('endTime'),
+      specWrapA:document.getElementById('specWrapA'), specWrapB:document.getElementById('specWrapB'),
+      selectionOverlay:document.getElementById('selectionOverlay'), selectionBox:document.getElementById('selectionBox'),
+      selectionCenter:document.getElementById('selectionCenter'),
+      edgeTop:document.getElementById('edgeTop'), edgeBottom:document.getElementById('edgeBottom'),
+      edgeLeft:document.getElementById('edgeLeft'), edgeRight:document.getElementById('edgeRight'),
+      cornerTopLeft:document.getElementById('cornerTopLeft'), cornerTopRight:document.getElementById('cornerTopRight'),
+      cornerBottomLeft:document.getElementById('cornerBottomLeft'), cornerBottomRight:document.getElementById('cornerBottomRight'),
+      playbackIndicator:document.getElementById('playbackIndicator'),
+      playbackIndicatorA:document.getElementById('playbackIndicatorA') };
     
     function refreshButtons(){
       const hasAudio = !!(els.fileAudio.files && els.fileAudio.files.length);
@@ -537,15 +1163,520 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
       const arr=await file.arrayBuffer(); const dec=await audioCtx.decodeAudioData(arr);
       sampleRate=dec.sampleRate; duration=dec.duration;
       const L=dec.getChannelData(0); if(dec.numberOfChannels>1){ const R=dec.getChannelData(1); const n=Math.min(L.length,R.length); const m=new Float32Array(n); for(let i=0;i<n;i++){ m[i]=(L[i]+R[i])*0.5; } srcPCM=m; } else { srcPCM=new Float32Array(L); }
+
+      // Set maxHz to Nyquist frequency (half of sample rate)
+      els.maxHz.value = (sampleRate / 2) | 0;
+
+      // Initialize time range to full duration
+      els.startTime.value = 0;
+      els.endTime.value = duration.toFixed(2);
+      els.startTime.max = duration.toFixed(2);
+      els.endTime.max = duration.toFixed(2);
+
       els.status.textContent='Loaded '+file.name+' : '+duration.toFixed(2)+'s @ '+(sampleRate|0)+'Hz';
       (() => { const wav = encodeWav(srcPCM, sampleRate); const u = window.makeSafeObjectURL(wav); if(u && u.then){ u.then(url=>els.playerOrig.src=url); } else if(u) { els.playerOrig.src = u; } })();
       els.btnPreview.disabled=false; els.btnEmbed.disabled=!(els.fileImage.files.length);
+      els.btnDownload.style.display = 'none'; // Hide download button until embed is done
+
+      updateSelectionBox();
     }
     els.fileAudio.addEventListener('change', async ()=>{ const f=els.fileAudio.files&&els.fileAudio.files[0]; if(f) await decodeAudio(f); refreshButtons(); });
-    els.fileImage.addEventListener('change', ()=>{ refreshButtons(); 
+    els.fileImage.addEventListener('change', ()=>{ refreshButtons();
     refreshButtons();
     });
-    
+
+    /* ===== 2D Selection Box Control ===== */
+    let selectionVisible = false;
+    function ensureSelectionVisible() {
+      if (!selectionVisible) {
+        els.selectionOverlay.style.display = 'block';
+        selectionVisible = true;
+      }
+    }
+
+    // Convert between time/frequency and pixel coordinates
+    function timeToX(time) {
+      if (!duration) return 0;
+      const canvasWidth = els.specA.width || 471;
+      return (time / duration) * canvasWidth;
+    }
+
+    function xToTime(x) {
+      if (!duration) return 0;
+      const canvasWidth = els.specA.width || 471;
+      return (x / canvasWidth) * duration;
+    }
+
+    function freqToY(freq) {
+      if (!sampleRate) return 0;
+      const canvasHeight = els.specA.height || 400;
+      const nyquist = sampleRate / 2;
+      // Y axis is inverted (0 at top = high freq, bottom = low freq)
+      return canvasHeight * (1 - freq / nyquist);
+    }
+
+    function yToFreq(y) {
+      if (!sampleRate) return 0;
+      const canvasHeight = els.specA.height || 400;
+      const nyquist = sampleRate / 2;
+      // Y axis is inverted
+      return nyquist * (1 - y / canvasHeight);
+    }
+
+    function updateSelectionBox() {
+      if (!duration || !sampleRate) return;
+
+      const startT = Math.max(0, Math.min(duration, parseFloat(els.startTime.value) || 0));
+      const endT = Math.max(startT, Math.min(duration, parseFloat(els.endTime.value) || duration));
+      const minF = Math.max(0, Math.min(sampleRate/2, parseFloat(els.minHz.value) || 0));
+      const maxF = Math.max(minF, Math.min(sampleRate/2, parseFloat(els.maxHz.value) || sampleRate/2));
+
+      const left = timeToX(startT);
+      const right = timeToX(endT);
+      const top = freqToY(maxF);
+      const bottom = freqToY(minF);
+
+      els.selectionBox.style.left = left + 'px';
+      els.selectionBox.style.top = top + 'px';
+      els.selectionBox.style.width = (right - left) + 'px';
+      els.selectionBox.style.height = (bottom - top) + 'px';
+    }
+
+    // Update box when inputs change
+    els.startTime.addEventListener('input', updateSelectionBox);
+    els.endTime.addEventListener('input', updateSelectionBox);
+    els.minHz.addEventListener('input', updateSelectionBox);
+    els.maxHz.addEventListener('input', updateSelectionBox);
+
+    // Selection box dragging
+    let selectionDrag = null;
+    let selectionDragStarted = false;
+    let selectionDragMoved = false;
+    let suppressNextClick = false;
+    const AUTO_SCROLL_MARGIN = 30;
+    const AUTO_SCROLL_STEP = 20;
+    let autoScrollDir = 0;
+    let autoScrollTimer = null;
+    let autoScrollDirAPlayback = 0;
+    let autoScrollTimerAPlayback = null;
+    let autoScrollDirBPlayback = 0;
+    let autoScrollTimerBPlayback = null;
+
+    function setAutoScrollDirection(dir) {
+      autoScrollDir = dir;
+      if (autoScrollDir === 0) {
+        if (autoScrollTimer) {
+          clearInterval(autoScrollTimer);
+          autoScrollTimer = null;
+        }
+        return;
+      }
+
+      if (!autoScrollTimer) {
+        autoScrollTimer = setInterval(() => {
+          const wrap = els.specWrapA;
+          if (!wrap) return;
+          const maxScroll = wrap.scrollWidth - wrap.clientWidth;
+          wrap.scrollLeft = Math.max(0, Math.min(maxScroll, wrap.scrollLeft + autoScrollDir * AUTO_SCROLL_STEP));
+          // While auto-scrolling, keep updating selection with last known cursor position
+          processSelectionDrag({ clientX: selectionDrag?.lastClientX, clientY: selectionDrag?.lastClientY });
+        }, 40);
+      }
+    }
+
+    function setAutoScrollDirectionPlaybackA(dir) {
+      autoScrollDirAPlayback = dir;
+      if (dir === 0) {
+        if (autoScrollTimerAPlayback) { clearInterval(autoScrollTimerAPlayback); autoScrollTimerAPlayback = null; }
+        return;
+      }
+      if (!autoScrollTimerAPlayback) {
+        autoScrollTimerAPlayback = setInterval(() => {
+          const wrap = els.specWrapA;
+          if (!wrap) return;
+          const maxScroll = wrap.scrollWidth - wrap.clientWidth;
+          wrap.scrollLeft = Math.max(0, Math.min(maxScroll, wrap.scrollLeft + autoScrollDirAPlayback * AUTO_SCROLL_STEP));
+          if (playbackDragStateA) { seekToPositionA({ clientX: playbackLastClientXA, clientY: playbackLastClientYA }); }
+        }, 40);
+      }
+    }
+
+    function setAutoScrollDirectionPlaybackB(dir) {
+      autoScrollDirBPlayback = dir;
+      if (dir === 0) {
+        if (autoScrollTimerBPlayback) { clearInterval(autoScrollTimerBPlayback); autoScrollTimerBPlayback = null; }
+        return;
+      }
+      if (!autoScrollTimerBPlayback) {
+        autoScrollTimerBPlayback = setInterval(() => {
+          const wrap = els.specWrapB;
+          if (!wrap) return;
+          const maxScroll = wrap.scrollWidth - wrap.clientWidth;
+          wrap.scrollLeft = Math.max(0, Math.min(maxScroll, wrap.scrollLeft + autoScrollDirBPlayback * AUTO_SCROLL_STEP));
+          if (playbackDragState) { seekToPosition({ clientX: playbackLastClientX, clientY: playbackLastClientY }); }
+        }, 40);
+      }
+    }
+
+    function autoScrollDuringDrag(e) {
+      const wrap = els.specWrapA;
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
+
+      if (e.clientX < rect.left + AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirection(-1);
+      } else if (e.clientX > rect.right - AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirection(1);
+      } else {
+        setAutoScrollDirection(0);
+      }
+    }
+
+    function startDrag(e, type) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const rect = els.specA.getBoundingClientRect();
+      const startX = e.clientX - rect.left;
+      const startY = e.clientY - rect.top;
+
+      selectionDrag = {
+        type: type,
+        startX: startX,
+        startY: startY,
+        initialStartTime: parseFloat(els.startTime.value) || 0,
+        initialEndTime: parseFloat(els.endTime.value) || duration,
+        initialMinHz: parseFloat(els.minHz.value) || 0,
+        initialMaxHz: parseFloat(els.maxHz.value) || sampleRate/2,
+        lastClientX: e.clientX,
+        lastClientY: e.clientY
+      };
+      selectionDragStarted = true;
+      selectionDragMoved = false;
+    }
+
+    // Edge handlers
+    els.edgeLeft.addEventListener('mousedown', (e) => startDrag(e, 'left'));
+    els.edgeRight.addEventListener('mousedown', (e) => startDrag(e, 'right'));
+    els.edgeTop.addEventListener('mousedown', (e) => startDrag(e, 'top'));
+    els.edgeBottom.addEventListener('mousedown', (e) => startDrag(e, 'bottom'));
+
+    // Corner handlers
+    els.cornerTopLeft.addEventListener('mousedown', (e) => startDrag(e, 'top-left'));
+    els.cornerTopRight.addEventListener('mousedown', (e) => startDrag(e, 'top-right'));
+    els.cornerBottomLeft.addEventListener('mousedown', (e) => startDrag(e, 'bottom-left'));
+    els.cornerBottomRight.addEventListener('mousedown', (e) => startDrag(e, 'bottom-right'));
+
+    // Center handler (move entire box)
+    els.selectionCenter.addEventListener('mousedown', (e) => startDrag(e, 'move'));
+
+    // Click and drag on overlay to create new selection
+    els.selectionOverlay.addEventListener('mousedown', function(e) {
+      // Only if clicking directly on overlay (not on box or its children)
+      if (e.target !== els.selectionOverlay) return;
+
+      e.preventDefault();
+      const rect = els.specA.getBoundingClientRect();
+      const startX = e.clientX - rect.left;
+      const startY = e.clientY - rect.top;
+
+      selectionDrag = {
+        type: 'create',
+        startX: startX,
+        startY: startY,
+        initialStartTime: xToTime(startX),
+        initialEndTime: xToTime(startX),
+        initialMinHz: yToFreq(startY),
+        initialMaxHz: yToFreq(startY)
+      };
+    });
+
+    function processSelectionDrag(e) {
+      if (!selectionDrag || !duration || !sampleRate) return;
+
+      // Persist latest cursor position (real or synthetic)
+      selectionDrag.lastClientX = (e && e.clientX !== undefined) ? e.clientX : selectionDrag.lastClientX;
+      selectionDrag.lastClientY = (e && e.clientY !== undefined) ? e.clientY : selectionDrag.lastClientY;
+
+      const clientX = selectionDrag.lastClientX;
+      const clientY = selectionDrag.lastClientY;
+
+      autoScrollDuringDrag({ clientX, clientY });
+
+      const rect = els.specA.getBoundingClientRect();
+      const currentX = clientX - rect.left;
+      const currentY = clientY - rect.top;
+      if (Math.abs(currentX - selectionDrag.startX) > 0.5 || Math.abs(currentY - selectionDrag.startY) > 0.5) {
+        selectionDragMoved = true;
+      }
+
+      const dx = currentX - selectionDrag.startX;
+      const dy = currentY - selectionDrag.startY;
+
+      const dt = xToTime(dx) - xToTime(0);
+      const df = yToFreq(dy) - yToFreq(0);
+
+      let newStartTime = selectionDrag.initialStartTime;
+      let newEndTime = selectionDrag.initialEndTime;
+      let newMinHz = selectionDrag.initialMinHz;
+      let newMaxHz = selectionDrag.initialMaxHz;
+
+      if (selectionDrag.type === 'left') {
+        newStartTime = Math.max(0, Math.min(selectionDrag.initialEndTime - 0.01, selectionDrag.initialStartTime + dt));
+      } else if (selectionDrag.type === 'right') {
+        newEndTime = Math.max(selectionDrag.initialStartTime + 0.01, Math.min(duration, selectionDrag.initialEndTime + dt));
+      } else if (selectionDrag.type === 'top') {
+        newMaxHz = Math.max(selectionDrag.initialMinHz + 100, Math.min(sampleRate/2, selectionDrag.initialMaxHz + df));
+      } else if (selectionDrag.type === 'bottom') {
+        newMinHz = Math.max(0, Math.min(selectionDrag.initialMaxHz - 100, selectionDrag.initialMinHz + df));
+      } else if (selectionDrag.type === 'top-left') {
+        newStartTime = Math.max(0, Math.min(selectionDrag.initialEndTime - 0.01, selectionDrag.initialStartTime + dt));
+        newMaxHz = Math.max(selectionDrag.initialMinHz + 100, Math.min(sampleRate/2, selectionDrag.initialMaxHz + df));
+      } else if (selectionDrag.type === 'top-right') {
+        newEndTime = Math.max(selectionDrag.initialStartTime + 0.01, Math.min(duration, selectionDrag.initialEndTime + dt));
+        newMaxHz = Math.max(selectionDrag.initialMinHz + 100, Math.min(sampleRate/2, selectionDrag.initialMaxHz + df));
+      } else if (selectionDrag.type === 'bottom-left') {
+        newStartTime = Math.max(0, Math.min(selectionDrag.initialEndTime - 0.01, selectionDrag.initialStartTime + dt));
+        newMinHz = Math.max(0, Math.min(selectionDrag.initialMaxHz - 100, selectionDrag.initialMinHz + df));
+      } else if (selectionDrag.type === 'bottom-right') {
+        newEndTime = Math.max(selectionDrag.initialStartTime + 0.01, Math.min(duration, selectionDrag.initialEndTime + dt));
+        newMinHz = Math.max(0, Math.min(selectionDrag.initialMaxHz - 100, selectionDrag.initialMinHz + df));
+      } else if (selectionDrag.type === 'move') {
+        const timeDuration = selectionDrag.initialEndTime - selectionDrag.initialStartTime;
+        const freqRange = selectionDrag.initialMaxHz - selectionDrag.initialMinHz;
+
+        newStartTime = selectionDrag.initialStartTime + dt;
+        newEndTime = selectionDrag.initialEndTime + dt;
+        newMinHz = selectionDrag.initialMinHz + df;
+        newMaxHz = selectionDrag.initialMaxHz + df;
+
+        // Clamp to boundaries
+        if (newStartTime < 0) {
+          newStartTime = 0;
+          newEndTime = timeDuration;
+        }
+        if (newEndTime > duration) {
+          newEndTime = duration;
+          newStartTime = duration - timeDuration;
+        }
+        if (newMinHz < 0) {
+          newMinHz = 0;
+          newMaxHz = freqRange;
+        }
+        if (newMaxHz > sampleRate/2) {
+          newMaxHz = sampleRate/2;
+          newMinHz = sampleRate/2 - freqRange;
+        }
+      } else if (selectionDrag.type === 'create') {
+        // Creating a new box - use current position as one corner, start as other
+        newStartTime = Math.min(selectionDrag.initialStartTime, xToTime(currentX));
+        newEndTime = Math.max(selectionDrag.initialStartTime, xToTime(currentX));
+
+        const currentFreq = yToFreq(currentY);
+        newMinHz = Math.min(selectionDrag.initialMinHz, currentFreq);
+        newMaxHz = Math.max(selectionDrag.initialMaxHz, currentFreq);
+      }
+
+      // Update input fields
+      els.startTime.value = newStartTime.toFixed(2);
+      els.endTime.value = newEndTime.toFixed(2);
+      els.minHz.value = Math.round(newMinHz);
+      els.maxHz.value = Math.round(newMaxHz);
+
+      updateSelectionBox();
+    }
+
+    document.addEventListener('mousemove', function(e) {
+      processSelectionDrag(e);
+    });
+
+    document.addEventListener('mouseup', function(e) {
+      if (selectionDragMoved) {
+        suppressNextClick = true;
+      } else {
+        suppressNextClick = false;
+      }
+      selectionDrag = null;
+      selectionDragMoved = false;
+      setAutoScrollDirection(0);
+      // Reset drag state after the event loop so clicks can be distinguished
+      requestAnimationFrame(() => { selectionDragStarted = false; });
+    });
+
+    // Click-to-seek on original spectrogram (no drag)
+    els.specWrapA.addEventListener('click', function(e) {
+      if (!duration || !els.playerOrig) return;
+      // Only process pure clicks (no drag in progress or just ended)
+      if (suppressNextClick || selectionDragStarted || selectionDrag) {
+        suppressNextClick = false;
+        return;
+      }
+      const wrap = els.specWrapA;
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left + wrap.scrollLeft;
+      const canvasWidth = els.specA.width || 471;
+      const fraction = Math.max(0, Math.min(1, x / canvasWidth));
+      els.playerOrig.currentTime = fraction * duration;
+      updatePlaybackIndicatorA();
+    });
+
+    /* ===== Playback Position Indicator ===== */
+    function updatePlaybackIndicator() {
+      if (!els.playerOut.duration || !duration) return;
+
+      const currentTime = els.playerOut.currentTime;
+      const canvasWidth = els.specB.width || 471;
+      const leftPx = (currentTime / duration) * canvasWidth;
+
+      els.playbackIndicator.style.left = leftPx + 'px';
+      els.playbackIndicator.classList.add('active');
+
+      // Auto-scroll to keep indicator in view
+      const wrap = els.specWrapB;
+      const margin = AUTO_SCROLL_MARGIN;
+      if (wrap) {
+        const minVisible = wrap.scrollLeft + margin;
+        const maxVisible = wrap.scrollLeft + wrap.clientWidth - margin;
+        if (leftPx < minVisible) {
+          wrap.scrollLeft = Math.max(0, leftPx - margin);
+        } else if (leftPx > maxVisible) {
+          wrap.scrollLeft = Math.min(wrap.scrollWidth - wrap.clientWidth, leftPx - wrap.clientWidth + margin);
+        }
+      }
+    }
+
+    function updatePlaybackIndicatorA() {
+      if (!els.playerOrig.duration || !duration) return;
+
+      const currentTime = els.playerOrig.currentTime;
+      const canvasWidth = els.specA.width || 471;
+      const leftPx = (currentTime / duration) * canvasWidth;
+
+      els.playbackIndicatorA.style.left = leftPx + 'px';
+      els.playbackIndicatorA.classList.add('active');
+
+      // Auto-scroll to keep indicator in view
+      const wrap = els.specWrapA;
+      const margin = AUTO_SCROLL_MARGIN;
+      if (wrap) {
+        const minVisible = wrap.scrollLeft + margin;
+        const maxVisible = wrap.scrollLeft + wrap.clientWidth - margin;
+        if (leftPx < minVisible) {
+          wrap.scrollLeft = Math.max(0, leftPx - margin);
+        } else if (leftPx > maxVisible) {
+          wrap.scrollLeft = Math.min(wrap.scrollWidth - wrap.clientWidth, leftPx - wrap.clientWidth + margin);
+        }
+      }
+    }
+
+    els.playerOut.addEventListener('timeupdate', updatePlaybackIndicator);
+    els.playerOut.addEventListener('play', () => els.playbackIndicator.classList.add('active'));
+    els.playerOut.addEventListener('pause', () => els.playbackIndicator.classList.add('active'));
+    els.playerOut.addEventListener('ended', () => els.playbackIndicator.classList.remove('active'));
+
+    els.playerOrig.addEventListener('timeupdate', updatePlaybackIndicatorA);
+    els.playerOrig.addEventListener('play', () => els.playbackIndicatorA.classList.add('active'));
+    els.playerOrig.addEventListener('pause', () => els.playbackIndicatorA.classList.add('active'));
+    els.playerOrig.addEventListener('ended', () => els.playbackIndicatorA.classList.remove('active'));
+
+    // Draggable playback indicator for seeking
+    let playbackDragState = false;
+    let playbackDragStateA = false;
+    let playbackLastClientX = 0, playbackLastClientY = 0;
+    let playbackLastClientXA = 0, playbackLastClientYA = 0;
+
+    els.playbackIndicator.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      playbackDragState = true;
+      playbackLastClientX = e.clientX;
+      playbackLastClientY = e.clientY;
+    });
+    els.playbackIndicatorA.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      playbackDragStateA = true;
+      playbackLastClientXA = e.clientX;
+      playbackLastClientYA = e.clientY;
+    });
+
+    els.specWrapB.addEventListener('mousedown', function(e) {
+      if (!els.playerOut.duration || e.target !== els.specB) return;
+      e.preventDefault();
+      playbackDragState = true;
+      playbackLastClientX = e.clientX;
+      playbackLastClientY = e.clientY;
+      seekToPosition(e);
+    });
+    els.specWrapA.addEventListener('mousedown', function(e) {
+      // Avoid fighting selection overlay; only allow seeking when clicking directly on the canvas
+      if (!els.playerOrig.duration || e.target !== els.specA) return;
+      e.preventDefault();
+      playbackDragStateA = true;
+      playbackLastClientXA = e.clientX;
+      playbackLastClientYA = e.clientY;
+      seekToPositionA(e);
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!playbackDragState || !els.playerOut.duration) return;
+      playbackLastClientX = e.clientX;
+      playbackLastClientY = e.clientY;
+      const rect = els.specWrapB.getBoundingClientRect();
+      if (e.clientX < rect.left + AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirectionPlaybackB(-1);
+      } else if (e.clientX > rect.right - AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirectionPlaybackB(1);
+      } else {
+        setAutoScrollDirectionPlaybackB(0);
+      }
+      seekToPosition(e);
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!playbackDragStateA || !els.playerOrig.duration) return;
+      playbackLastClientXA = e.clientX;
+      playbackLastClientYA = e.clientY;
+      const rect = els.specWrapA.getBoundingClientRect();
+      if (e.clientX < rect.left + AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirectionPlaybackA(-1);
+      } else if (e.clientX > rect.right - AUTO_SCROLL_MARGIN) {
+        setAutoScrollDirectionPlaybackA(1);
+      } else {
+        setAutoScrollDirectionPlaybackA(0);
+      }
+      seekToPositionA(e);
+    });
+
+    document.addEventListener('mouseup', function(e) {
+      playbackDragState = false;
+      playbackDragStateA = false;
+      setAutoScrollDirectionPlaybackA(0);
+      setAutoScrollDirectionPlaybackB(0);
+    });
+
+    function seekToPosition(e) {
+      const rect = els.specWrapB.getBoundingClientRect();
+      const wrap = els.specWrapB;
+      const clientX = e.clientX !== undefined ? e.clientX : playbackLastClientX;
+      const x = clientX - rect.left + wrap.scrollLeft;
+      const canvasWidth = els.specB.width || 471;
+      const fraction = Math.max(0, Math.min(1, x / canvasWidth));
+      const newTime = fraction * duration;
+
+      els.playerOut.currentTime = newTime;
+      updatePlaybackIndicator();
+    }
+    function seekToPositionA(e) {
+      const rect = els.specWrapA.getBoundingClientRect();
+      const wrap = els.specWrapA;
+      const clientX = e.clientX !== undefined ? e.clientX : playbackLastClientXA;
+      const x = clientX - rect.left + wrap.scrollLeft;
+      const canvasWidth = els.specA.width || 471;
+      const fraction = Math.max(0, Math.min(1, x / canvasWidth));
+      const newTime = fraction * duration;
+
+      els.playerOrig.currentTime = newTime;
+      updatePlaybackIndicatorA();
+    }
+
     /* ===== preview spectrogram ===== */
     async function renderSpec(canvas, pcm, sr, N, hopFrac, minHz, maxHz){
       if(!pcm) return; const hop=Math.max(1,Math.round(N*hopFrac));
@@ -648,7 +1779,8 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     /* ===== Build watermark from image spectrogram ===== */
     async function buildWatermarkFromImage(N, hop, frames, bins, minBin, maxBin) {
       const imgFile = els.fileImage.files[0];
-      const flip = els.flipVertical.checked;
+      const flipVert = els.flipVertical.checked;
+      const flipHorz = els.flipHorizontal.checked;
       const invert = els.invertImage.checked;
       const img = await createImageBitmap(imgFile);
       const used = maxBin - minBin + 1;
@@ -675,11 +1807,12 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
       const targetMag = new Array(frames);
     
       for (let f = 0; f < frames; f++) {
+        const srcX = flipHorz ? (frames - 1 - f) : f;
         const row = new Float32Array(bins + 1); // zeroed by default
     
         for (let y = 0; y < used; y++) {
-          const srcY = flip ? (used - 1 - y) : y;
-          const i = (srcY * frames + f) * 4;
+          const srcY = flipVert ? y : (used - 1 - y);
+          const i = (srcY * frames + srcX) * 4;
           const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
     
           // Luminance from RGB
@@ -716,13 +1849,22 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     /* ===== Main embed ===== */
     async function embedAndRender(){
       if(!srcPCM || !els.fileImage.files[0]) return;
-    
+
+      // Get time range
+      const startT = Math.max(0, parseFloat(els.startTime.value) || 0);
+      const endT = Math.max(startT, Math.min(duration, parseFloat(els.endTime.value) || duration));
+
+      // Extract the time-range portion of the audio
+      const startSample = Math.floor(startT * sampleRate);
+      const endSample = Math.floor(endT * sampleRate);
+      const rangePCM = srcPCM.slice(startSample, endSample);
+
       const N=Number(els.fftSize.value)|0;
       const hop=Math.max(1,Math.round(N*(Number(els.hopPct.value)/100)));
-      const frames=1+Math.floor((srcPCM.length-N)/hop);
+      const frames=1+Math.floor((rangePCM.length-N)/hop);
       const bins=N/2|0; const ny=sampleRate/2;
-      const minHz = (els.minHz.value === "" ? 8000 : Math.max(0, Number(els.minHz.value)));
-      const maxHz = (els.maxHz.value === "" ? 18000 : Math.max(0, Number(els.maxHz.value)));
+      const minHz = (els.minHz.value === "" ? 0 : Math.max(0, Number(els.minHz.value)));
+      const maxHz = (els.maxHz.value === "" ? ny : Math.max(0, Number(els.maxHz.value)));
       const minBin=Math.max(0,Math.floor(minHz/ny*(bins))), maxBin=Math.min(bins,Math.ceil(maxHz/ny*(bins)));
     
       els.status.textContent='Building watermarkâ€¦';
@@ -730,24 +1872,21 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     
       // If the image is pure black (or nearly), do NOT embed.
       if (build.totalLum < 1e-6) {
-        els.status.textContent = 'Image is all black â€“ no changes applied.';
+        els.status.textContent = 'Image is all black – no changes applied.';
         outPCM = new Float32Array(srcPCM);
-        const wav = encodeWav(outPCM, sampleRate);
+        wavBlob = encodeWav(outPCM, sampleRate);
         let uSafe = null;
         try{
-          if(window.makeSafeObjectURL){ uSafe = window.makeSafeObjectURL(wav); }
-          else { uSafe = URL.createObjectURL(wav); }
+          if(window.makeSafeObjectURL){ uSafe = window.makeSafeObjectURL(wavBlob); }
+          else { uSafe = URL.createObjectURL(wavBlob); }
         }catch(e){ uSafe = null; }
-        const doDownload = (url)=>{
+        const setPlayer = (url)=>{
           try{ els.playerOut.src = url; }catch(e){}
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'spectroghost_no_change.wav';
-          a.click();
         };
-        if(uSafe && typeof uSafe.then === 'function'){ uSafe.then(doDownload).catch(()=>{}); }
-        else if(uSafe){ doDownload(uSafe); }
+        if(uSafe && typeof uSafe.then === 'function'){ uSafe.then(setPlayer).catch(()=>{}); }
+        else if(uSafe){ setPlayer(uSafe); }
         await renderSpec(els.specB, outPCM, sampleRate, N, hop/N, 0, sampleRate/2);
+        els.btnDownload.style.display = 'inline-block';
         return;
       }
     
@@ -755,59 +1894,65 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
       const strengthPct = Number(els.strength.value);
       const strength = Math.max(0, Math.min(2, strengthPct/100));
       const iters = Math.max(0, Math.min(12, Number(els.glIters.value)|0));
-    
-      els.status.textContent='Running Griffinâ€“Limâ€¦';
-      let wm = griffinLim(targetMag, N, hop, iters, srcPCM.length);
-    
+
+      els.status.textContent='Running Griffin–Lim…';
+      let wm = griffinLim(targetMag, N, hop, iters, rangePCM.length);
+
       // Band-limit watermark firmly in STFT domain
       const ST=stft(wm, N, hop); const Ms=ST.Ms, Ph=ST.Ph;
       for(let f=0; f<frames; f++){ const m=Ms[f]; for(let k=0;k<=bins;k++){ if(k<minBin || k>maxBin) m[k]=0; } }
-      let wmBand = istft(Ms, Ph, N, hop, srcPCM.length);
-    
+      let wmBand = istft(Ms, Ph, N, hop, rangePCM.length);
+
       // Extra safety: linear-phase time-domain FIR bandpass to kill any leakage
       const taps = 513; // linear-phase; ~10ms at 48kHz
       const h = makeBandpassFIR(sampleRate, minHz, maxHz, taps);
       wmBand = convolveFIR(wmBand, h);
-    
-      // Scale watermark RMS relative to source, then mix
-      const srcR = rms(srcPCM);
+
+      // Scale watermark RMS relative to source range, then mix
+      const srcR = rms(rangePCM);
       let wmR = rms(wmBand);
       const targetR = srcR * strength;
       const gain = wmR>1e-12 ? (targetR / wmR) : 0;
       for(let i=0;i<wmBand.length;i++) wmBand[i] *= gain;
-    
-      const out=new Float32Array(srcPCM.length);
-      for(let i=0;i<out.length;i++) out[i]=srcPCM[i] + wmBand[i];
-    
+
+      // Mix watermark with the range
+      const rangeOut=new Float32Array(rangePCM.length);
+      for(let i=0;i<rangeOut.length;i++) rangeOut[i]=rangePCM[i] + wmBand[i];
+
+      // Insert the watermarked range back into the full audio
+      outPCM = new Float32Array(srcPCM);
+      for(let i=0; i<rangeOut.length; i++) {
+        outPCM[startSample + i] = rangeOut[i];
+      }
+
       // normalize softly
-      let peak=0; for(let i=0;i<out.length;i++){ const a=Math.abs(out[i]); if(a>peak) peak=a; }
-      if(peak>0.99){ const g=0.99/peak; for(let i=0;i<out.length;i++) out[i]*=g; }
-    
-      outPCM = out;
-      const wav2 = encodeWav(outPCM, sampleRate);
+      let peak=0; for(let i=0;i<outPCM.length;i++){ const a=Math.abs(outPCM[i]); if(a>peak) peak=a; }
+      if(peak>0.99){ const g=0.99/peak; for(let i=0;i<outPCM.length;i++) outPCM[i]*=g; }
+
+      wavBlob = encodeWav(outPCM, sampleRate);
       let u2 = null;
       try{
-        if(window.makeSafeObjectURL){ u2 = window.makeSafeObjectURL(wav2); }
-        else { u2 = URL.createObjectURL(wav2); }
+        if(window.makeSafeObjectURL){ u2 = window.makeSafeObjectURL(wavBlob); }
+        else { u2 = URL.createObjectURL(wavBlob); }
       }catch(e){ u2 = null; }
-    
-      const finalize = (url)=>{
+
+      const setPlayer = (url)=>{
         try{ els.playerOut.src = url; }catch(e){}
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'spectroghost_stego_strict.wav';
-        a.click();
       };
-      if(u2 && typeof u2.then === 'function'){ u2.then(finalize).catch(()=>{}); }
-      else if(u2){ finalize(u2); }
-    
+      if(u2 && typeof u2.then === 'function'){ u2.then(setPlayer).catch(()=>{}); }
+      else if(u2){ setPlayer(u2); }
+
       await renderSpec(els.specB, outPCM, sampleRate, N, hop/N, 0, sampleRate/2);
+      els.status.textContent='Done. Click Download WAV to save.';
+      els.btnDownload.style.display = 'inline-block';
     }
 
     /* ===== UI ===== */
     document.getElementById('btnPreview').addEventListener('click', async ()=>{
       els.status.textContent='Rendering spectrograms';
       await renderSpec(els.specA, srcPCM, sampleRate, Number(els.fftSize.value), Number(els.hopPct.value)/100, 0, sampleRate/2);
+      ensureSelectionVisible();
+      updateSelectionBox(); // Refresh the selection box
       if(outPCM){ await renderSpec(els.specB, outPCM, sampleRate, Number(els.fftSize.value), Number(els.hopPct.value)/100, 0, sampleRate/2); }
       els.status.textContent='Done';
     });
@@ -815,7 +1960,30 @@ No modifications have been made to the Bootstrap CSS except for local hosting an
     document.getElementById('btnEmbed').addEventListener('click', async ()=>{
       els.status.textContent='Embedding image';
       await embedAndRender();
-      els.status.textContent='Done. Preview or re-embed if needed.';
+    });
+
+    document.getElementById('btnDownload').addEventListener('click', ()=>{
+      if (!wavBlob) {
+        els.status.textContent = 'No audio to download. Click Embed Image first.';
+        return;
+      }
+
+      let url = null;
+      try{
+        if(window.makeSafeObjectURL){ url = window.makeSafeObjectURL(wavBlob); }
+        else { url = URL.createObjectURL(wavBlob); }
+      }catch(e){ url = null; }
+
+      const doDownload = (downloadUrl)=>{
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = 'sonoglyph_stego.wav';
+        a.click();
+        els.status.textContent = 'Download started.';
+      };
+
+      if(url && typeof url.then === 'function'){ url.then(doDownload).catch(()=>{}); }
+      else if(url){ doDownload(url); }
     });
 </script>
 
