@@ -414,6 +414,7 @@
     }
     html,body{height:100%}
     body{ 
+      align-items: center;
       margin: 0;
       padding: 0;
       background:var(--gg-bg); 
@@ -672,19 +673,31 @@
 
     /* FOOTER / LICENSE */
     .license-footer {
-      margin-top: 30px;
-      margin-bottom: 20px;
-      padding: 10px 8px;
+      width: 100%;
+      max-width: 760px;
+      border-top: 2px solid #3b528b;
+      margin-top: auto;
+      margin-bottom: 0px;
+      padding: 10px 0px;
       font-size: 0.68rem;
-      color: var(--gg-dim);
+      color: #a9a9b2;
       opacity: 0.7;
-      cursor: pointer;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.3s ease;
       text-align: center;
+      text-decoration: none;
     }
-
-    .license-footer:hover {
+    
+    .license-footer a {
+      color: #a9a9b2;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .license-footer a:hover { 
+      color: #97f3d2;
+      cursor: pointer;
       opacity: 1;
+      text-decoration: underline;
     }
 
     .license-overlay {
@@ -711,7 +724,7 @@
       overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0,0,0,.6);
       z-index: 1000;
-      text-align: center;
+      text-align: left;
     }
 
     .license-modal.show,
@@ -925,19 +938,28 @@ function setSrcFromMaybePromise(el, maybeUrl){
     </section>
   </main>
 
-  <!-- FOOTER / LICENSE -->
-  <footer class="license-footer" id="licenseLink">
-    MIT License • Developed by NQR • Click to view
-  </footer>
+    <!-- FOOTER / LICENSE -->
+  <div class="container-lg" style="display: flex; justify-content: center;">
+    <footer class="license-footer">
+      <a href="https://youtube.com/@CLU-NQR" target="_blank">YouTube</a> &middot;
+      <a href="https://discord.gg/HT9YE8rvuN" target="_blank">Discord</a> &middot;
+      <a href="https://nqrlabs.com" target="_blank">NQR Labs</a> &middot;
+      <a href="https://github.com/NQRLabs" target="_blank">GitHub</a>
+      <br>
+      &copy; 2025 NQR &middot; <a id="licenseLink">License</a>
+    </footer>
+  </div>
 
   <div class="license-overlay" id="licenseOverlay"></div>
   <div class="license-modal" id="licenseModal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
     <div class="license-modal-header">
-      <h3 class="license-modal-title" id="licenseTitle">MIT License</h3>
+      <h3 class="license-modal-title" id="licenseTitle">SonoGlyph License</h3>
       <span class="license-modal-close" id="licenseClose" aria-label="Close license dialog">&times;</span>
     </div>
-    <pre class="small-muted" style="text-align:center; white-space:pre-wrap; margin-top:14px;">
-Copyright (c) 2025 NQR
+    <pre class="small-muted" style="white-space:pre-wrap; margin-top:14px;">
+SonoGlyph - MIT License
+
+Copyright &copy; 2025 NQR
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
